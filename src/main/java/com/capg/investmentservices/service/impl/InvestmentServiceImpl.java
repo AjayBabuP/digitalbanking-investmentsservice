@@ -53,14 +53,16 @@ public class InvestmentServiceImpl implements InvestmentService {
 	}
 
 	@Override
-	public List<Transaction> getRecentTransactions(Integer accountNum, String startDate, String endDate) {
-		Date startDt;
+	public List<Transaction> getRecentTransactions(Integer accountNum) {
 		List<Transaction> txList =null;
 		try {
-			startDt = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
-			Date endDt =new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+			//startDt = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
+			//Date endDt =new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+			Date startDt = new SimpleDateFormat("yyyy-MM-dd").parse("2000-01-01");
+			Date endDt =new SimpleDateFormat("yyyy-MM-dd").parse("2020-12-31");
 			txList = transactionDao.getTransactions(accountNum, startDt, endDt);
-
+			
+			
 			// Get max 10 recent transactions
 			if(txList!= null && txList.size()>maxRecentTransactions){
 				txList = txList.subList(0, maxRecentTransactions-1);

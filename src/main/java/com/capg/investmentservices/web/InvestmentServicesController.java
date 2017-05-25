@@ -21,25 +21,23 @@ import com.capg.investmentservices.service.InvestmentService;
 @ComponentScan("com.capg.investmentservices")
 @EnableAutoConfiguration
 public class InvestmentServicesController {
-	
+
 	@Autowired
 	private InvestmentService investmentService;
 
 	private static Logger log = Logger.getLogger(InvestmentServicesController.class);
-	
+
 	@CrossOrigin
-	@RequestMapping(value="/investmentservices/{customerId}/investments",method = RequestMethod.GET)
-	public List<Investment> getCardList(@PathVariable Integer customerId) {
+	@RequestMapping(value = "/investmentservices/{customerId}/investments", method = RequestMethod.GET)
+	public List<Investment> getInvestmentList(@PathVariable Integer customerId) {
 		log.info("Request Mapped");
 		return this.investmentService.getAllInvestment(customerId);
 	}
 
-	@RequestMapping(value="/investmentservices/{investmentId}/{startDate}/{endDate}/getRecentTransactions"
-			,method = RequestMethod.POST)
-	public List<Transaction> getRecentTransactions(@PathVariable Integer investmentId
-			, @PathVariable String startDate
-			, @PathVariable String endDate) {
+	@RequestMapping(value="/investmentservices/{investmentId}/getRecentTransactions"
+			,method = RequestMethod.GET)
+	public List<Transaction> getRecentTransactions(@PathVariable Integer investmentId) {
 		log.info("Request Mapped");
-		return investmentService.getRecentTransactions(investmentId, startDate, endDate);
+		return investmentService.getRecentTransactions(investmentId);
 	}
 }
